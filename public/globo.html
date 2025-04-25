@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Globo</title>
+        <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+        <script src="componentes.js"></script>
+    </head>
+    <body>
+        <a-scene> 
+        <a-entity globo="color: #e7a11d; lado: 0.5" position="-0.5 1.5 0">
+        </a-entity>
+
+        <a-entity globo="color: #6af71a; lado: 0.5" position="1.5 1.5 0"
+            animation="property: position; to: 0 1.5 0; dur: 3000; easing: linear">
+        </a-entity>
+
+        <a-entity globo="color: #6af71a; lado: 0.5" position="-2 3 0"
+            animation="property: position; to: 1.5 3 0; dur: 6000; easing: linear">
+        </a-entity>
+
+        <a-entity globo="color: #601af7; lado: 0.5" position="1.5 3 0"
+            animation="property: position; to: -2 3 0; dur: 5000; easing: linear">
+        </a-entity>
+
+        <a-entity globo="color: #e7a11d; lado: 0.5" position="-2 0 0">
+        </a-entity>
+
+        <a-entity globo="color: #1af7d2; lado: 0.5" position="-2 2 0"
+            animation="property:position; to: -2 0 0; dur: 5000; easing: linear">
+        </a-entity>
+
+        <a-entity wasd-controls movement-controls="fly: true" look-controls></a-entity>
+
+        <a-camera position="0 1.6 3"></a-camera>
+        </a-scene>
+        
+    </body>
+</html>
