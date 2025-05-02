@@ -54,3 +54,37 @@ AFRAME.registerComponent('movedor', {
     }
   });
   
+
+  AFRAME.registerComponent('destructor', {
+
+    schema: {
+        objetivo: { type: 'string', default: '.objetivo' },
+        direccion: { type: 'vec3', default: { x: 1, y: 0, z: 0 } },
+        lejos:{type: 'number', default: 5},
+        cerca:{type: 'number', default: 1},
+        color:{type: 'color', default: 'yellow'}
+        
+    },
+    init: function () {
+        const id = this.el.getAttribute('id');
+       
+        this.el.setAttribute('raycaster', {
+            objects: this.data.objetivo,
+            far: this.data.lejos,
+            near:this.data.cerca,
+            showLine: true,
+            lineColor: this.data.color,
+            direction: this.data.direccion
+            
+        });
+        this.el.setAttribute('obb-collider', '');
+
+        this.el.addEventListener('raycaster-intersection', function (event) {
+            console.log(`Destructor (${id}) va a destruir`);
+            for (const intersected_el of event.detail.els) {
+                console.log("Destruyendo:", intersected_el);
+                intersected_el.parentNode.removeChild(intersected_el);
+            };
+        });
+    }
+});
