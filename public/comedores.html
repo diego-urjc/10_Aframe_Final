@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="componentes.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-entity 
+            comedor="color: #f7f41a; radius: 0.5; velocidad: 1"
+            position="0 1.6 -5" >
+        </a-entity>
+        <a-entity 
+            comedor="color: #f7f41a; radius: 0.5; velocidad: 1"
+            position="-5 4 -5" >
+        </a-entity>
+        <a-entity 
+            comedor="color: #f7f41a; radius: 0.5; velocidad: 1"
+            position="5 0 -5" >
+        </a-entity>
+
+        <a-entity 
+            id="jugador"
+            jugador="color: #3bffff; radius: 0.5" 
+            position="-6 2 2" 
+            animation="property: position; to: 6 2 2; dur: 5000; dir:alternate; easing: linear; loop: true"
+            >
+        </a-entity>
+        
+        <a-camera position="0 3 7"></a-camera>
+    </a-scene>
+</body>
+</html>

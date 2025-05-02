@@ -88,3 +88,71 @@ AFRAME.registerComponent('movedor', {
         });
     }
 });
+
+AFRAME.registerComponent('comedor', {
+  schema: {
+    color: { type: 'color', default: '#4CC3D9' },
+    radius: { type: 'number', default: 0.5 },
+    velocidad: { type: 'number', default: 1 }
+  },
+
+  init: function () {
+    const el = this.el;
+
+    el.setAttribute('geometry', {
+      primitive: 'sphere',
+      radius: this.data.radius
+    });
+    el.setAttribute('material', 'color', this.data.color);
+    el.setAttribute('obb-collider', 'minimumColliderDimension: 0.1');
+
+    el.addEventListener('obbcollisionstarted', (event) => {
+      const target = event.detail.withEl;
+      if (target.hasAttribute('jugador')) {
+        target.parentNode.removeChild(target);
+        console.log("¡Jugador eliminado!");
+      }
+    });
+
+    this.jugador = document.getElementById('jugador');
+    if (!this.jugador) {
+      console.warn('No se encontró un elemento con id="jugador" en la escena.');
+    }
+    this.direccion = new THREE.Vector3();
+  },
+
+  tick: function (time, deltaTime) {
+    if (!this.jugador) return;
+
+    const posicionComedor = this.el.object3D.position;
+    const posicionJugador = new THREE.Vector3();
+    this.jugador.object3D.getWorldPosition(posicionJugador);
+
+    // Con esto calculamos la dirección hacia el jugador
+    this.direccion.copy(posicionJugador).sub(posicionComedor).normalize();
+
+    const distancia = (this.data.velocidad * deltaTime) / 1000;
+    const desplazamiento = this.direccion.clone().multiplyScalar(distancia);
+
+    // Movemos el comedor
+    this.el.object3D.position.add(desplazamiento);
+  }
+});
+
+AFRAME.registerComponent('jugador', {
+
+  schema: {
+      color: { type: 'color', default: '#3bffff' },
+      radius: {type: 'number', default: 0.5}
+  },
+  init: function () {
+      this.el.setAttribute('material', 'color', this.data.color);
+      this.el.setAttribute('geometry',{
+          primitive: 'sphere',
+          radius: this.data.radius
+      });
+    
+      this.el.setAttribute('obb-collider', '');
+
+  }
+});
