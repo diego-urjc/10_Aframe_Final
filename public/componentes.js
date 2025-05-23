@@ -14,9 +14,13 @@ AFRAME.registerComponent('globo', {
         this.el.setAttribute('obb-collider', '');
 
         this.el.addEventListener('obbcollisionstarted', function (event) {
-            const target = event.detail.withEl
+          const target = event.detail.withEl;
+          // el globo solo puede destruir otros globos
+          if (target.hasAttribute('globo')) {
             target.parentNode.removeChild(target);
-        });
+          }
+      });
+      
     }
 });
 
@@ -72,9 +76,11 @@ AFRAME.registerComponent('movedor', {
             objects: this.data.objetivo,
             far: this.data.lejos,
             near:this.data.cerca,
-            showLine: true,
+            
+            
             lineColor: this.data.color,
-            direction: this.data.direccion
+            direction: this.data.direccion,
+            origin: { x: 0, y: -0.2, z: 0 }
             
         });
         this.el.setAttribute('obb-collider', '');
@@ -115,9 +121,7 @@ AFRAME.registerComponent('comedor', {
     });
 
     this.jugador = document.getElementById('jugador');
-    if (!this.jugador) {
-      console.warn('No se encontró un elemento con id="jugador" en la escena.');
-    }
+   
     this.direccion = new THREE.Vector3();
   },
 
@@ -156,3 +160,108 @@ AFRAME.registerComponent('jugador', {
 
   }
 });
+
+AFRAME.registerComponent('juego', {
+
+  schema:{
+
+    num_globos:{type:'number',default:10},
+    num_comedores:{type:'number',default:3},
+    col_globos:{type:'color',default:'#4CC3D9'},
+    col_comedores:{type:'color',default:'#f7f41a'},
+    col_jugador:{type:'color',default:'#3bffff'},
+    tam_globos:{type:'number',default:0.5},
+    tam_comedores:{type:'number',default:0.5},
+    tam_jugador:{type:'number',default:0.5},
+    vel_globos:{type:'number',default:1},
+    vel_comedores:{type:'number',default:1},
+    intervalo_globos:{type:'number',default:2000},
+    dir_destructor: { type: 'vec3', default: { x: 0, y: 0, z: -1 } },
+    lejos_destructor:{type:'number',default:5},
+    cerca_destructor:{type:'number',default:1},
+    
+  },
+
+  init:function(){
+    for (let i = 0; i < this.data.num_globos; i++) {
+      const globo = document.createElement('a-entity');
+      const globoProps = {
+          color: this.data.col_globos,
+          lado: this.data.tam_globos
+      };
+      globo.setAttribute('globo', globoProps);
+  
+      const movedorProps = {
+          velocidad: this.data.vel_globos,
+          intervalo: this.data.intervalo_globos
+      };
+      globo.setAttribute('movedor', movedorProps);
+  
+      // posición inicial aleatoria para separarlos
+      const x = (Math.random() - 0.5) * 10;  
+      const y = (Math.random() - 0.5) * 5 + 2; 
+      const z = (Math.random() - 0.5) * 10;  
+      globo.setAttribute('position', `${x} ${y} ${z}`);
+      globo.classList.add('objetivo');
+      
+      
+  
+      this.el.appendChild(globo);
+    }
+
+    for (let i = 0; i < this.data.num_comedores; i++) {
+      const comedor = document.createElement('a-entity');
+        const comedorProps = {
+            color: this.data.col_comedores,
+            radius: this.data.tam_comedores,
+            velocidad: this.data.vel_comedores
+        };
+            
+        comedor.setAttribute('comedor', comedorProps);
+    
+    
+        // posición inicial aleatoria para separarlos
+        const x = (Math.random() - 0.5) * 10;  
+        const y = (Math.random() - 0.5) * 5 + 2; 
+        const z = (Math.random() - 0.5) * 10;  
+        comedor.setAttribute('position', `${x} ${y} ${z}`);
+    
+        this.el.appendChild(comedor);  
+
+  }
+    const jugador = document.getElementById('jugador');
+
+    jugador.setAttribute('destructor', {
+      direccion: this.data.dir_destructor,
+      lejos: this.data.lejos_destructor,
+      cerca: this.data.cerca_destructor,
+      color: this.data.col_jugador,
+      objetivo: '.objetivo'
+      
+    });
+
+    jugador.setAttribute('jugador', {
+      color: this.data.col_jugador,
+      radius: this.data.tam_jugador
+    });
+    const puntero = document.createElement('a-entity');
+    //modificar escala del puntero
+    
+
+    puntero.setAttribute('geometry', {
+      primitive: 'ring',
+      radiusInner: 0.01,
+      radiusOuter: 0.04,
+      
+    });
+    puntero.setAttribute('material', 'color: #185013; shader: flat');
+
+    // Lo ponemos justo delante de la cámara
+    puntero.setAttribute('position', '0 -0.2 -2');
+    puntero.setAttribute('rotation', '0 0 0');
+    puntero.setAttribute('scale', '1 1 1');    
+
+    jugador.appendChild(puntero);
+
+  }  
+})

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
+    <script src="componentes.js"></script>
+</head>
+<body>
+    <a-scene>
+        <a-entity 
+            juego="num_globos: 10; num_comedores: 3;
+            col_globos:#4CC3D9;col_comedores:#f7f41a;col_jugador:#3bffff;
+            tam_globos:0.5;tam_comedores:0.5;tam_jugador:0.3;
+            vel_globos:1;vel_comedores:1;intervalo_globos:2000;
+            dir_destructor:0 0 -1;lejos_destructor:5;cerca_destructor:1">
+        </a-entity>
+        
+        <a-camera id="jugador" position="0 3 7"></a-camera>
+
+        <a-sky color="#c2b581"></a-sky>
+    </a-scene>
+</body>
+</html>
