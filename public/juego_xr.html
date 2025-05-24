@@ -3,6 +3,8 @@
 <head>
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.2.0/dist/aframe-extras.min.js"></script>
+    <script src="https://unpkg.com/aframe-extras@6.1.1/dist/aframe-extras.controls.min.js"></script>
+
 
     <script src="componentes.js"></script>
 </head>
@@ -21,9 +23,16 @@
         </a-entity>
         
 
-        <a-entity id="rig" position="0 1.6 0"  movement-controls="fly: true">
-            <a-entity id="jugador" camera look-controls wasd-controls ></a-entity>
+        <a-entity id="rig" movement-controls="fly: true" position="0 1.6 0">
+            <a-entity id="jugador"
+                      camera
+                      look-controls
+                      universal-controls
+                      gamepad-controls="controller: 0"
+                      wasd-controls
+                      position="0 0 0"></a-entity>
           </a-entity>
+          
           
 
         <a-sky hide-on-enter-ar color="#c2b581"></a-sky>
