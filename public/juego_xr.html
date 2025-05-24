@@ -14,18 +14,17 @@
             juego="num_globos: 10; num_comedores: 3;
             col_globos:#4CC3D9;col_comedores:#f7f41a;col_jugador:#3bffff;
             tam_globos:0.5;tam_comedores:0.5;tam_jugador:0.3;
-            vel_globos:1;vel_comedores:0.9;intervalo_globos:2000;
+            vel_globos:1;vel_comedores:0.8;intervalo_globos:2000;
             dir_destructor:0 0 -1;lejos_destructor:5;cerca_destructor:1">
         </a-entity>
         
 
-          <a-entity movement-controls="fly: true"></a-entity>
-            <a-entity id="jugador" camera look-controls wasd-controls position="0 1.6 0"></a-entity>
-        </a-entity>
-
-        <a-entity laser-controls="hand: left"></a-entity>
-        <a-entity laser-controls="hand: right"></a-entity>
+        <a-entity id="rig" position="0 1.6 0">
+            <a-entity id="jugador" camera look-controls wasd-controls ></a-entity>
+          </a-entity>
           
+          <a-entity id="left-hand" hand-controls="hand: left" oculus-touch-controls></a-entity>
+          <a-entity id="right-hand" hand-controls="hand: right" oculus-touch-controls></a-entity>
           
 
         <a-sky hide-on-enter-ar color="#c2b581"></a-sky>
