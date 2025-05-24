@@ -109,7 +109,8 @@ AFRAME.registerComponent('comedor', {
       src: '#comedor_audio',
       autoplay: true,
       loop: true, 
-      positional: true 
+      positional: true,
+      volume: 0.6 
     });
     
     el.setAttribute('geometry', {
