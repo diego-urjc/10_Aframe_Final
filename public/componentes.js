@@ -105,7 +105,13 @@ AFRAME.registerComponent('comedor', {
   init: function () {
     const el = this.el;
     
-    el.setAttribute('audio', 'src: #comedor_audio; autoplay: true');
+    el.setAttribute('sound', {
+      src: '#comedor_audio',
+      autoplay: true,
+      loop: true, 
+      positional: true 
+    });
+    
     el.setAttribute('geometry', {
       primitive: 'sphere',
       radius: this.data.radius
