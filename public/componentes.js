@@ -229,9 +229,16 @@ AFRAME.registerComponent('juego', {
     
     
         // posición inicial aleatoria para separarlos
-        const x = (Math.random() - 0.5) * 10;  
-        const y = (Math.random() - 0.5) * 5 + 2; 
-        const z = (Math.random() - 0.5) * 10;  
+        const distanciaMin = 5;
+        const distanciaMax = 10;
+        
+        
+        const x = (Math.random() - 0.5) * 10; // -5 a 5
+        const y = Math.random() * 4 + 1;      // 1 a 5
+        
+        // Siempre delante del jugador (z negativo)
+        const z = - (Math.random() * (distanciaMax - distanciaMin) + distanciaMin); // -5 a -15
+        
         comedor.setAttribute('position', `${x} ${y} ${z}`);
     
         this.el.appendChild(comedor);  
