@@ -88,8 +88,7 @@ AFRAME.registerComponent('movedor', {
             for (const intersected_el of event.detail.els) {
                 console.log("Destruyendo:", intersected_el);
                 intersected_el.parentNode.removeChild(intersected_el);
-                const explosion = document.getElementById('exp').currentTime = 0;
-                explosion.play();
+                
 
         
                 // Lanzar evento personalizado 'destruido'
