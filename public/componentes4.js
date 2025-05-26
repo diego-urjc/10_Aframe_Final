@@ -310,7 +310,7 @@ AFRAME.registerComponent('marcador', {
 
     this.el.setAttribute('geometry', 'primitive: plane; width: 0.6; height: 0.2');
     this.el.setAttribute('material', 'color: white; shader: flat');
-    this.el.setAttribute('position', '1.2 -0.6 -0.8'); 
+    this.el.setAttribute('position', '1 -0.6 -0.8'); 
     this.el.setAttribute('scale', '0.5 0.5 0.5'); 
 
     // Título 
