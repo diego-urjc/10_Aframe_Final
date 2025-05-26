@@ -4,14 +4,16 @@
     <script src="https://aframe.io/releases/1.7.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
     <script src="camrender.js"></script>
-
     <script src="componentes3.js"></script>
+
 </head>
 <body>
     <a-scene xr-mode-ui="XRMode: xr">
         <a-assets>
             <audio id ="comedor_audio" src="comedor_audio.mp3"></audio>
+            <audio id="exp" src="exp.mp3"></audio>
             <canvas id="cam1"></canvas>
+            
 
         </a-assets>
         <a-entity 
@@ -24,6 +26,7 @@
         
         <a-entity id="rig" position="0 1.6 5"  movement-controls="fly: true">
             <a-entity id="jugador" camera look-controls wasd-controls >
+                
                 <a-entity 
                     marcador >
                 </a-entity>
@@ -32,6 +35,7 @@
                     material="src: #cam1; opacity: .90; shader: flat; color: #c2f0f5" canvas-updater>
                 </a-plane>
             </a-entity>
+        
         </a-entity>
 
         <!-- camara con forma de caja -->

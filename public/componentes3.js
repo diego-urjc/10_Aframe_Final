@@ -88,6 +88,9 @@ AFRAME.registerComponent('movedor', {
             for (const intersected_el of event.detail.els) {
                 console.log("Destruyendo:", intersected_el);
                 intersected_el.parentNode.removeChild(intersected_el);
+                const explosion = document.getElementById('exp').currentTime = 0;
+                explosion.play();
+
         
                 // Lanzar evento personalizado 'destruido'
                 this.el.emit('destruido', { objetivo: intersected_el });
@@ -119,14 +122,22 @@ AFRAME.registerComponent('comedor', {
       primitive: 'sphere',
       radius: this.data.radius
     });
+
     el.setAttribute('material', 'color', this.data.color);
-    el.setAttribute('obb-collider', 'minimumColliderDimension: 0.1');
+    el.setAttribute('obb-collider', '');
 
     el.addEventListener('obbcollisionstarted', (event) => {
       const target = event.detail.withEl;
       if (target.hasAttribute('jugador')) {
         target.parentNode.removeChild(target);
         console.log("¡Jugador eliminado!");
+         
+        // Ocultar todos los comedores
+        const todosLosComedores = document.querySelectorAll('[comedor]');
+        todosLosComedores.forEach((com) => {
+        com.setAttribute('visible', false);
+      });
+        
       }
     });
 
